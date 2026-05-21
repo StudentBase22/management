@@ -693,7 +693,25 @@
                 padding: 0.6rem;
             }
             .content-area, .exam-setup, .exam-running, .exam-results {
-                padding: 1.5rem;
+                padding: 1.2rem;
+            }
+            .formatted-content h2 {
+                font-size: 1.4rem;
+                flex-wrap: wrap;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            .formatted-content > ul, 
+            .formatted-content > ol {
+                grid-template-columns: 1fr;
+            }
+            .formatted-content > ul > li, 
+            .formatted-content > ol > li {
+                padding: 1.2rem;
+            }
+            .container {
+                padding: 1rem;
+                overflow-x: hidden;
             }
         }
 

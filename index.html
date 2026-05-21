@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الإدارة | المراجعة النهائية</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        
+        :root {
+            --bg-color: #0b0f19;
+            --surface-color: #131a2a;
+            --surface-hover: #1e293b;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary: #8b5cf6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --border: #1e293b;
+            --glass-bg: rgba(19, 26, 42, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .bg-decoration {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+        }
+
+        nav {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-btn:hover {
+            color: var(--text-main);
+            background: var(--surface-hover);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .section {
+            display: none;
+            animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+        }
+
+        .hero-badge {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+            box-shadow: none;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .study-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .units-sidebar {
+            background: var(--surface-color);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            position: sticky;
+            top: 6rem;
+            max-height: calc(100vh - 8rem);
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .unit-btn {
+            width: 100%;
+            text-align: right;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            padding: 1rem 1.2rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .unit-btn i {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .unit-btn:hover:not(:disabled) {
+            background: var(--surface-hover);
+            color: var(--text-main);
+        }
+
+        .unit-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            border: none;
+        }
+
+        .unit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .content-area {
+            background: var(--surface-color);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 3rem;
+            min-height: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .formatted-content h2 {
+            color: white;
+            margin: 3rem 0 1.5rem;
+            font-size: 1.9rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), transparent);
+            padding: 1rem;
+            border-right: 4px solid var(--secondary);
+            border-radius: 8px;
+        }
+        
+        .formatted-content h3 {
+            color: var(--primary);
+            margin: 2.2rem 0 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: inline-block;
+            border-bottom: 2px dashed rgba(59, 130, 246, 0.3);
+            padding-bottom: 0.3rem;
+        }
+
+        .formatted-content p {
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .formatted-content > ul, 
+        .formatted-content > ol {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            padding-right: 0;
+            list-style: none;
+        }
+
+        .formatted-content > ul > li,
+        .formatted-content > ol > li {
+            background: var(--surface-color);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .formatted-content > ul > li::before,
+        .formatted-content > ol > li::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 16px 16px 0 0;
+            opacity: 0.8;
+        }
+
+        .formatted-content > ul > li:hover,
+        .formatted-content > ol > li:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .formatted-content > ul > li > strong,
+        .formatted-content > ol > li > strong {
+            display: block;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .formatted-content li ul,
+        .formatted-content li ol {
+            margin-top: 1rem;
+            padding-right: 1.2rem;
+            list-style: disc;
+        }
+
+        .formatted-content li li {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .formatted-content li li::marker {
+            color: var(--primary);
+        }
+
+        .exam-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .exam-setup, .exam-running, .exam-results {
+            background: var(--surface-color);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            animation: fadeInScale 0.4s ease forwards;
+        }
+
+        .exam-setup.active, .exam-running.active, .exam-results.active {
+            display: block;
+        }
+
+        .exam-setup {
+            text-align: center;
+        }
+
+        .exam-setup h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .exam-setup p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .unit-select {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem;
+            font-size: 1.1rem;
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .unit-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .question-counter {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-color);
+            border-radius: 4px;
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .question-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            color: white;
+            line-height: 1.5;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option-btn {
+            background: var(--bg-color);
+            border: 2px solid var(--border);
+            color: var(--text-main);
+            padding: 1.2rem 1.5rem;
+            font-size: 1.15rem;
+            text-align: right;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateX(-5px);
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .option-btn.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .option-btn.wrong {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        .exam-controls {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+        }
+
+        .exam-results {
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            border: 10px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
+            position: relative;
+        }
+
+        .score-circle span {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+        }
+
+        .score-circle small {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-muted);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-hover);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        @media (max-width: 900px) {
+            .study-grid {
+                grid-template-columns: 1fr;
+            }
+            .units-sidebar {
+                position: relative;
+                top: 0;
+                max-height: 300px;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links span {
+                display: none;
+            }
+            .nav-btn {
+                padding: 0.6rem;
+            }
+            .content-area, .exam-setup, .exam-running, .exam-results {
+                padding: 1.5rem;
+            }
+        }
+
+        #password-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 15, 25, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s;
+        }
+
+        .auth-container {
+            background: var(--surface-color);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .auth-container h2 {
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .auth-container i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .pass-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .pass-input:focus {
+            border-color: var(--primary);
+        }
+
+        .auth-error {
+            color: var(--danger);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div id="password-overlay">
+        <div class="auth-container">
+            <i class="fa-solid fa-lock"></i>
+            <h2>تسجيل الدخول</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">يرجى إدخال كلمة المرور للوصول إلى المنصة</p>
+            <div class="auth-error" id="auth-error">كلمة المرور غير صحيحة، حاول مجدداً!</div>
+            <input type="password" class="pass-input" id="pass-input" placeholder="كلمة المرور..." onkeypress="if(event.key === 'Enter') checkPassword()">
+            <button class="btn" style="width: 100%; justify-content: center;" onclick="checkPassword()">دخول <i class="fa-solid fa-arrow-left"></i></button>
+        </div>
+    </div>
+
+    <div class="bg-decoration"></div>
+    
+    <nav>
+        <div class="logo">
+            <i class="fa-solid fa-layer-group"></i>
+            منصة الإدارة
+        </div>
+        <div class="nav-links">
+            <button class="nav-btn active" data-target="home"><i class="fa-solid fa-house"></i> <span>الرئيسية</span></button>
+            <button class="nav-btn" data-target="study"><i class="fa-solid fa-book-open"></i> <span>المادة العلمية</span></button>
+            <button class="nav-btn" data-target="exam"><i class="fa-solid fa-clipboard-check"></i> <span>الاختبارات</span></button>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-badge">مادة الإدارة - المراجعة النهائية</div>
+                <h1>استعد لامتحان الإدارة<br>بذكاء وكفاءة</h1>
+                <p>منصة تفاعلية متكاملة تجمع لك ملخصات الوحدات والاختبارات التجريبية في مكان واحد بتصميم عصري يسهل عليك التركيز والمذاكرة.</p>
+                
+                <div class="hero-actions">
+                    <button class="btn" onclick="document.querySelector('[data-target=\'study\']').click()">
+                        <i class="fa-solid fa-book-open-reader"></i> ابدأ المذاكرة الآن
+                    </button>
+                    <button class="btn btn-outline" onclick="document.querySelector('[data-target=\'exam\']').click()">
+                        <i class="fa-solid fa-stopwatch"></i> اختبر نفسك
+                    </button>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                        <h3 style="font-size: 2rem; margin-bottom: 0.5rem; color: #fff;">5</h3>
+                        <p style="color: var(--text-muted);">وحدات دراسية</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-list-check"></i></div>
+                        <h3 style="font-size: 2rem; margin-bottom: 0.5rem; color: #fff;" id="home-q-count">5</h3>
+                        <p style="color: var(--text-muted);">سؤال تفاعلي</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <h3 style="font-size: 2rem; margin-bottom: 0.5rem; color: #fff;">100%</h3>
+                        <p style="color: var(--text-muted);">جاهزية للامتحان</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="study" class="section">
+            <div class="study-grid">
+                <div class="units-sidebar">
+                    <div class="sidebar-title">
+                        <i class="fa-solid fa-list-ul"></i> الفهرس
+                    </div>
+                    <div id="units-list">
+                        
+                    </div>
+                </div>
+                <div class="content-area">
+                    <div class="content-header">
+                        <h1 class="content-title" id="unit-title">اختر وحدة للبدء</h1>
+                        <span id="unit-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 8px; font-weight: bold; display: none;">متاح</span>
+                    </div>
+                    <div class="formatted-content" id="unit-content">
+                        <div style="text-align: center; padding: 4rem 0; color: var(--text-muted);">
+                            <i class="fa-solid fa-book-open" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <p>قم باختيار الوحدة من القائمة الجانبية لعرض الملخص</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exam" class="section">
+            <div class="exam-container">
+                
+                <div class="exam-setup active" id="exam-setup">
+                    <h2>الاختبار الشامل</h2>
+                    <p>هذا الاختبار يغطي جميع وحدات مادة الفاينل (من الوحدة الخامسة إلى التاسعة).</p>
+                    <br>
+                    <button class="btn" id="start-exam-btn" style="width: 100%; max-width: 400px; justify-content: center;">
+                        البدء بالاختبار الشامل <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                </div>
+
+                <div class="exam-running" id="exam-running">
+                    <div class="exam-header">
+                        <div class="question-counter" id="q-counter">سؤال 1 / 10</div>
+                        <div style="color: var(--text-muted); font-weight: 600;" id="exam-title-display">الوحدة الأولى</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="q-progress"></div>
+                    </div>
+                    
+                    <div class="question-text" id="q-text">
+                        تحميل السؤال...
+                    </div>
+                    
+                    <div class="options-grid" id="q-options">
+                        
+                    </div>
+
+                    <div class="exam-controls">
+                        <button class="btn" id="next-q-btn" disabled>
+                            التالي <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="exam-results" id="exam-results">
+                    <h2 style="margin-bottom: 2rem;">اكتمل الاختبار!</h2>
+                    
+                    <div class="score-circle">
+                        <span id="score-percentage">0%</span>
+                        <small>النتيجة</small>
+                    </div>
+
+                    <div class="result-message" id="result-message" style="color: var(--success);">ممتاز! مستوى رائع.</div>
+                    
+                    <div class="result-details">
+                        <div><i class="fa-solid fa-check text-success"></i> إجابات صحيحة: <strong id="correct-count" style="color: var(--success);">0</strong></div>
+                        <div><i class="fa-solid fa-xmark text-danger"></i> إجابات خاطئة: <strong id="wrong-count" style="color: var(--danger);">0</strong></div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button class="btn" id="retry-btn">
+                            <i class="fa-solid fa-rotate-right"></i> إعادة الاختبار
+                        </button>
+                        <button class="btn btn-outline" onclick="document.querySelector('[data-target=\'study\']').click()">
+                            <i class="fa-solid fa-book"></i> مراجعة المادة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer style="text-align: center; padding: 1.5rem 0; margin-top: auto; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 1.1rem; font-weight: 600; background: var(--surface-color);">
+        اعداد : رشا العمري
+    </footer>
+
+    <script>
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        const SECRET_HASH = "ce36d2d6edd42737cefe137eb991620f433516fef3a5aa1b23d8aeebb7b5c1a7";
+        const overlay = document.getElementById('password-overlay');
+        const passInput = document.getElementById('pass-input');
+        const authError = document.getElementById('auth-error');
+
+        if (localStorage.getItem('isAuthorized') === 'true') {
+            overlay.style.display = 'none';
+        }
+
+        async function checkPassword() {
+            const inputVal = passInput.value;
+            const hashedInput = await sha256(inputVal);
+            
+            if (hashedInput === SECRET_HASH) {
+
+                localStorage.setItem('isAuthorized', 'true');
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 500);
+            } else {
+
+                authError.style.display = 'block';
+                passInput.style.borderColor = 'var(--danger)';
+                passInput.value = '';
+
+                const container = document.querySelector('.auth-container');
+                container.style.transform = 'translateX(-10px)';
+                setTimeout(() => container.style.transform = 'translateX(10px)', 50);
+                setTimeout(() => container.style.transform = 'translateX(-10px)', 100);
+                setTimeout(() => container.style.transform = 'translateX(10px)', 150);
+                setTimeout(() => container.style.transform = 'translateX(0)', 200);
+            }
+        }
+
+        const unit5Content = `
+            <h2>الوحدة الخامسة: تحليل الجدوى للمشروع (Project Feasibility Analysis)</h2>
+            
+            <h3>1. عملية تخطيط الأعمال الجديدة وتقييم الأفكار</h3>
+            <ul>
+                <li><strong>خطوات إطلاق عمل تجاري ناجح:</strong> تشمل عملية التخطيط خطوات متكاملة هي: تقييم الفكرة، دراسة الجدوى، نمذجة الأعمال، تخطيط الأعمال، والتخطيط الاستراتيجي. اتباع هذه الخطوات يزيد من فرص رائد الأعمال في إطلاق عمل تجاري ناجح ومستدام.</li>
+                <li><strong>بداية الأفكار:</strong> تبدأ أفضل الأفكار التجارية بمجموعة من العملاء والزبائن الذين لديهم مشكلة أو حاجة مشتركة.</li>
+                <li><strong>مفهوم تقييم الأفكار:</strong> هي عملية التأكد من حاجة هذه الفكرة في السوق، وتطوير حل لتلك الحاجة، وتحديد قدرة رائد الأعمال على تحويل الفكرة بنجاح إلى عمل تجاري.</li>
+                <li><strong>لوحة رسم وتصميم الأفكار (Idea Sketch Pad):</strong> أداة فعالة من تطوير "أليكس بروتن" تساعد رائد الأعمال على تقييم الأفكار في فترة زمنية قصيرة نسبيًا بالاعتماد على 5 معايير رئيسية:
+                    <ul>
+                        <li><strong>العملاء (الزبائن):</strong> مجموعة لديهم حاجة/مشكلة واضحة لم يتم تلبيتها بالكامل من الأعمال الحالية. يجب تحديد من هم المستخدمون والمشترون، كم عددهم، وكيف سيستخدمون العرض.</li>
+                        <li><strong>العرض / الطرح الجديد (Offering):</strong> وصف تفصيلي للمنتج أو الخدمة أو التجربة أو المزيج المقدم، وتحديد سماتها الرئيسية.</li>
+                        <li><strong>عرض القيمة (Value proposition):</strong> شرح سبب أهمية وقيمة المنتج أو الخدمة للعميل، وكيف سيلبي حاجته غير الملبّاة.</li>
+                        <li><strong>الكفاءات الأساسية (Core competencies):</strong> الميزات الفريدة أو التقنيات التي تميز العرض عن المنافسين ويصعب تقليدها، والقدرة على حمايتها كملكية فكرية (براءات اختراع، علامات تجارية، حقوق تأليف ونشر).</li>
+                        <li><strong>أشخاص / فريق العمل (Team Work):</strong> تحديد الأشخاص الرئيسيين والمؤسسين للمشروع، وهل يمتلكون المهارات والمعرفة والقدرة على سد أي فجوات.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>2. مفهوم وعناصر تحليل الجدوى (Feasibility Analysis)</h3>
+            <p><strong>المفهوم:</strong> فحص الفكرة بشكل أعمق بعد تقييمها، وهو فرصة لإلقاء نظرة فاحصة وثاقبة لمعرفة ما إذا كانت الفكرة تحتاج لمحاور ثانوية أو رئيسية، أو التخلي عنها تمامًا.</p>
+            <p><strong>المكونات الأربعة المترابطة لتحليل الجدوى:</strong></p>
+            <ol>
+                <li>جدوى الصناعة والسوق.</li>
+                <li>جدوى المنتج أو الخدمة.</li>
+                <li>الإمكانيات / الجدوى المالية.</li>
+                <li>جدوى رائد الأعمال وفريق العمل.</li>
+            </ol>
+
+            <h3>3. القوى الست في البيئة الكلية للصناعة (جدوى الصناعة والسوق)</h3>
+            <p>تقييم ملائمة الصناعة على المستوى "الكلي" يتم عبر 6 قوى أساسية تخلق التغيير في الأسواق:</p>
+            <ul>
+                <li><strong>القوى الاجتماعية والثقافية (Sociocultural Forces):</strong> التغير الاجتماعي والثقافي يخلق صناعات جديدة ويحول القائمة. (مثال: دخول النساء لسوق العمل بمعدلات أعلى في السبعينيات والثمانينيات أدى لنشوء قطاع ملابس العمل النسائية الرسمية، نمو صناعة المطاعم، وتضاعف الأسر المالكة لسيارتين).</li>
+                <li><strong>القوى التكنولوجية (Technological forces):</strong> الابتكارات التكنولوجية تطور منتجات وصناعات جديدة تمامًا. (مثال: الإنترنت غير صناعة الموسيقى عبر ظهور منصات مثل Spotify وiTunes، وغير تعاطي الأخبار مما خفض قراءة الصحف المطبوعة لصالح الصحف الإلكترونية).</li>
+                <li><strong>القوى الديمغرافية (Demographic forces):</strong> البحث في التغيرات السكانية (العدد، معدل النمو، التوزيع العمري، الجنس، الحالة الزوجية، التعليم، الهجرة). تغيير التركيبة السكانية يخلق فرصًا جديدة.</li>
+                <li><strong>القوى الاقتصادية (Economic forces):</strong> ترتبط معظم الشركات بأداء الاقتصاد الكلي، لكن بعض الأعمال تزدهر أثناء الأزمات والكساد (مثل ازدهار صناعة التعلم الإلكتروني أثناء الكساد وجائحة كورونا لتقديم مهارات بأسعار معقولة).</li>
+                <li><strong>القوى السياسية والقانونية (Political and legal forces):</strong> سن قوانين وتشريعات جديدة يخلق فرصًا استثمارية لرواد الأعمال.</li>
+                <li><strong>القوى العالمية (Global forces):</strong> الاتجاهات العالمية والأسواق المفتوحة تسمح للشركات (حتى الصغيرة منها) بالبحث عن عملاء وموردين من جميع أنحاء العالم (مثل اتجاهات الاستدامة العالمية والطاقة المتجددة).</li>
+            </ul>
+
+            <h3>4. تحليل جدوى المنتج أو الخدمة وطرق أبحاث السوق</h3>
+            <p><strong>الهدف:</strong> تحديد درجة جذب الفكرة للعملاء المحتملين وتحديد الموارد اللازمة للإنتاج، والإجابة على سؤال: "هل يرغب العملاء في شراء سلعنا وخدماتنا؟".</p>
+            <h4>طرق البحث الأولي (جمع البيانات بشكل مباشر وتحليلها):</h4>
+            <ul>
+                <li><strong>استبيانات واستفتاءات العملاء:</strong> يجب أن تكون قصيرة، مصاغة بعناية لعدم تحيز النتائج، وتستهدف السوق المستهدف (وليس المعارف فقط). مميزاتها: غير مكلفة، سهلة الإجراء، سريعة الملاحظات، وتوفر معلومات مفيدة. عيوبها: لا تعتبر تنبؤات موثوقة للغاية لسلوكيات العملاء الفعلية ولا توفر نظرة ثاقبة كاملة حول جدوى السوق.</li>
+                <li><strong>مجموعات التركيز (Focus Groups):</strong> عدد صغير من العملاء المحتملين (5 إلى 10) يزودون رائد الأعمال بملاحظات حول قضايا محددة. مميزاتها عبر الإنترنت: قلة التكلفة، معلومات تسويقية قيمة، وردود فعل سريعة ومريحة وحقيقية.</li>
+                <li><strong>النماذج الأولية (Prototypes):</strong> نموذج وظيفي أصلي يختبره العميل. مميزاته: يشير للمشكلات في التصميم مبكرًا لعلاجها، وتؤدي تعليقات العملاء لتحسين الميزات. (الطباعة ثلاثية الأبعاد خيار أقل تكلفة لتطوير نموذج أساسي يعتمد على الرسومات).</li>
+                <li><strong>التجارب المنزلية (In home trials):</strong> إرسال الباحثين لمنازل العملاء لمراقبتهم أثناء الاستخدام. تكشف عن أدق المعلومات ولكنها الأصعب تنسيقًا وقد تكون مكلفة جدًا.</li>
+            </ul>
+            <h4>طرق البحث الثانوي (جمع البيانات المتاحة والمجمعة مسبقًا):</h4>
+            <ul>
+                <li><strong>الجمعيات التجارية ودليل الأعمال:</strong> مثل دليل منظمات المجتمع المدني في الأردن.</li>
+                <li><strong>قواعد بيانات الصناعة:</strong> متوفرة عبر الإنترنت (مثل موقع جمعية المستثمرين في الأردن jia.org.jo) وتوفر تحليلات إحصائية وتقارير جغرافية.</li>
+                <li><strong>البيانات الديموغرافية وبيانات التعداد:</strong> من خلال دائرة الإحصاءات العامة في الأردن.</li>
+                <li><strong>التنبؤات:</strong> تصدر عن جهات مثل البنك الدولي ومركز الدراسات الاستراتيجية في الجامعة الأردنية لمعرفة الفرص الاقتصادية واتجاه السوق.</li>
+                <li><strong>أبحاث السوق الجاهزة والمقالات والدراسات:</strong> الاستعانة بالمجلات العلمية والدوريات التجارية والدراسات المحكمة.</li>
+                <li><strong>البيانات المحلية:</strong> الصادرة عن وزارة الصناعة والتجارة وغرفة التجارة المحلية.</li>
+                <li><strong>الإنترنت:</strong> مورد فعال ومحدث ومجاني غني بالمعلومات، مع ضرورة توخي الحذر لضمان مصداقية المصادر.</li>
+            </ul>
+
+            <h3>5. العناصر الأربعة الرئيسية لتحليل الجدوى المالية</h3>
+            <ul>
+                <li><strong>متطلبات رأس المال (Capital Requirements):</strong> الأموال والمواد والأدوات اللازمة لإنشاء النشاط (المعدات، المباني، التكنولوجيا، الأصول الملموسة، تعيين الموظفين وتدريبهم، والترويج).</li>
+                <li><strong>الأرباح المقدرة (Estimated Earnings):</strong> تقدير الأرباح السنوية أو الفصلية لكل نشاط، وهي أهم المدخلات لتقييم الشركة.</li>
+                <li><strong>وقت التدفق النقدي (Cash Flow Timing):</strong> صافي النقدية المتحولة من وإلى النشاط خلال فترة محددة لتحديد مرونة وسيولتها المتاحة. (الأموال المصروفة هي تدفقات خارجة، والواردة هي تدفقات داخلة).</li>
+                <li><strong>العائد على الاستثمار (ROI):</strong> قياس المنفعة المالية وكفاءة الاستثمار لتحديد ما إذا كان مجديًا ماليًا (المرتفع/الإيجابي مجدٍ، والمنخفض/السلبي سيء).</li>
+            </ul>
+
+            <h3>6. جدوى رائد الأعمال (الاستعداد الريادي)</h3>
+            <p>يجب أن يمتلك رائد الأعمال مجموعة من المعرفة والخبرات والمهارات للحصول على فرصة النجاح، وهو ما يسمى الاستعداد الريادي. كلما رغب المشروع في التوسع والنمو، زادت أهمية فهم المواهب الفردية والحاجة لشركاء أو موظفين لبناء العمل وتكملة النواقص.</p>
+        `;
+
+        const unit6Content = `
+            <h2>الوحدة السادسة: بناء نموذج العمل التجاري (Business Model Development)</h2>
+            
+            <h3>1. تعريف وتاريخ نموذج العمل التجاري</h3>
+            <ul>
+                <li><strong>التأسيس:</strong> يعود الفضل في ابتكار مخطط نموذج العمل التجاري إلى "أليكس اوستر فالدر" (Alexander Osterwalder) و"إيف بينور" (Yves Pigneur) في كتابهما (Business Model Generation) الصادر عام 2010 (المترجم للعربية باسم "ابتكار نموذج العمل التجاري").</li>
+                <li><strong>التعريف:</strong> طريقة بصرية تخطيطية تستخدم أثناء مرحلة التخطيط للمشروع من أجل تدارك الوقوع بالأخطاء قدر الإمكان، وتعتبر من أدوات التخطيط الاستراتيجي.</li>
+            </ul>
+
+            <h3>2. العناصر التسعة للوحة نموذج الأعمال (Business Model Canvas)</h3>
+            <p>يتكون المخطط من 9 عناصر رئيسية مبوبة كالآتي:</p>
+            <ol>
+                <li><strong>شرائح العملاء (Customer Segments):</strong> تقسيم العملاء لمجموعات مختلفة بناءً على السلوك، أساليب الإنفاق، العمر، أو الجنس. يتم تحديد حجم السوق، عدد العملاء المحتملين، وطبيعة العلاقة (هل هي فئة مستهلك نهائي B2C أم شركات أخرى B2B).</li>
+                <li><strong>عرض القيمة (Value Proposition):</strong> الوعود التي تقطعها الشركة للعملاء بمدى وطريقة الاستفادة من المنتجات أو الخدمات. يجب أن يكون واقعيًا وقابلاً للتحقيق لحماية علاقة العملاء بالشركة.
+                    <ul>
+                        <li><strong>أداة مخطط عرض القيمة (Value Proposition Canvas):</strong> تربط فئات الزبائن (المهمات المطلوبة، المكاسب، المشاكل) بالقيمة المقدمة (المنتجات والخدمات، جلب المكاسب، درء المشاكل).</li>
+                        <li><strong>أشكال عرض القيمة:</strong> الحداثة، التخصيص، الأداء، السعر، التصميم والعلامة التجارية، سهولة الاستعمال، وسهولة الوصول (التغطية وإتاحة الخدمة).</li>
+                    </ul>
+                </li>
+                <li><strong>علاقات العملاء (Customer Relationships):</strong> كيفية تعامل الشركة مع عملائها، وتكوين رحلة عميل مميزة، وتحديد النقاط المشتركة وطرق التواصل لضمان نجاح المنتج.</li>
+                <li><strong>القنوات (Channels):</strong> الخيارات المتاحة للعميل للوصول إلى المنتجات والخدمات (مثل البيع المباشر، عبر وسيط، عن بعد، أو وجاهي) ويرتبط وثيقًا بالخطة التسويقية.</li>
+                <li><strong>الأنشطة الرئيسية (Key Activities):</strong> مجموعة الإجراءات والعمليات الأساسية والتشغيلية الواجب عملها لتحقيق عرض القيمة (مثل تصنيع المنتجات، الاستشارات، والتطوير التقني كبناء منصة أو تطبيق).</li>
+                <li><strong>الموارد الرئيسية (Key Resources):</strong> الموارد والأصول المطلوبة لتنفيذ الأنشطة الرئيسية، وتشمل: الموارد المادية، الأصول، الموارد البشرية، الموارد المالية، خدمات الاتصال بالإنترنت، السيارات، والطاقة الكهربائية.</li>
+                <li><strong>الشركاء الرئيسيين (Key Partners):</strong> قائمة بالجهات الخارجية التي تحتاجها الشركة لإتمام أعمالها وتحقيق عرض القيمة (مثل الموردين، الموزعين، والجهات الأكاديمية أو الحكومية).</li>
+                <li><strong>هيكل التكلفة (Cost Structure):</strong> إجمالي التكاليف النقدية التي يحتاجها عمل الشركة (تكاليف الأنشطة، الموارد، والشراكات).</li>
+                <li><strong>مصادر الدخل (Revenue Streams):</strong> جميع التدفقات النقدية التي تحول عروض القيمة إلى مكاسب مالية. يجب أن تكون متنوعة لضمان عدم اعتماد الشركة على مصدر واحد.</li>
+            </ol>
+        `;
+
+        const unit7Content = `
+            <h2>الوحدة السابعة: تحليل الصناعة والمنافسين (Industry and Competitor Analysis)</h2>
+            
+            <h3>1. مفهوم الصناعة (What is Industry?)</h3>
+            <ul>
+                <li><strong>التعريف:</strong> مجموعة من الشركات والمنظمات التي توفر منتجات متماثلة أو متشابهة، أو تغطي نفس الحاجة أو تشبع ذات الرغبة للعميل.</li>
+                <li><strong>مثال شركة بيبسي:</strong> لا يقتصر منافسوها على شركات المشروبات الغازية فقط (مثل كوكا كولا)، بل تشمل جميع الشركات التي تغطي الحاجة الأساسية للعطش كشركات العصائر، المياه، أو القهوة.</li>
+            </ul>
+
+            <h3>2. مفهوم وأهمية وطرق تحليل الصناعة</h3>
+            <ul>
+                <li><strong>التعريف:</strong> خطوات ممنهجة تهدف لتحديد خصائص هيكل الصناعة التي تنشط فيها الشركة أو تنوي الدخول إليها والتي تؤثر في ربحيتها.</li>
+                <li><strong>الأهمية:</strong> التعرف على الصناعة والشركات العاملة فيها لمعرفة حظوظ وقدرة المنظمة على الحصول على ميزة تنافسية مستدامة.</li>
+                <li><strong>الطرق الـ 5 لإجراء تحليل الصناعة:</strong>
+                    <ol>
+                        <li>تحليل البيئة الداخلية والخارجية (SWOT analysis).</li>
+                        <li>تحليل اتجاهات الصناعة (Industry Trends Analysis).</li>
+                        <li>تحليل PESTLE للبيئة الخارجية.</li>
+                        <li>قوى بورتر الخمسة للصناعة (Porter Five Forces).</li>
+                        <li>تحليل المنافسين (Competitor analysis).</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>3. تحليل اتجاهات الصناعة (Industry Trends Analysis)</h3>
+            <p>دراسة الاتجاهات البيئية (الاقتصادية، الاجتماعية، التكنولوجية، السياسية، والقانونية) لمعرفة ما إذا كانت تسير في اتجاه الصناعة، ودراسة صعوبات وظروف القيام بها، مما يساعد في اتخاذ القرار النهائي بالدخول في صناعة معينة أو لا.</p>
+
+            <h3>4. نموذج وأسئلة تحليل الصناعة</h3>
+            <p>يتم طرح 4 أسئلة متسلسلة لاتخاذ القرار:</p>
+            <ul>
+                <li><strong>السؤال الأول:</strong> هل هذه الصناعة منطقية ومقبولة لافتتاح مشروع جديد بها؟ (إذا كانت الإجابة "لا" &larr; قم بالتفكير بصناعة أو مشروع آخر). إذا كانت "نعم" ننتقل للأسئلة التالية:</li>
+                <li><strong>السؤال الثاني:</strong> هل هناك مجال نستطيع من خلاله تجنب أو تخفيف الجوانب السلبية التي تؤثر على جاذبية وربحية الصناعة؟.</li>
+                <li><strong>السؤال الثالث:</strong> هل هناك موقع أو توصيف معين ضمن هذه الصناعة يتيح لنا تجنب أو تخفيف الجوانب السلبية المؤثرة على الربحية؟.</li>
+                <li><strong>السؤال الرابع:</strong> هل هناك نموذج أعمال متميز وفريد من نوعه يمكن العمل به بحيث يصعب على المنافسين تقليده أو العمل به؟.</li>
+            </ul>
+            <p><strong>خلاصة النموذج:</strong> الإجابة بـ نعم على أي من الأسئلة (2، 3، 4) يعزز من فرص نجاح المشروع. الإجابة بـ لا على جميع الأسئلة الثلاثة يعطي إشارة قوية لضرورة التفكير في مشروع آخر.</p>
+
+            <h3>5. تحليل SWOT و PESTLE</h3>
+            <h4>تحليل SWOT (البيئة الداخلية والخارجية):</h4>
+            <p>إطار لتقييم الموقع التنافسي:</p>
+            <ul>
+                <li><strong>عوامل داخلية:</strong> 
+                    <ul>
+                        <li>نقاط القوة (Strengths): ميزات تعطي أفضلية تنافسية (براءات اختراع، موارد بشرية مميزة).</li>
+                        <li>نقاط الضعف (Weaknesses): سلبيات تعيق إنجاز الأهداف (سمعة سيئة، نقص قدرات، ضعف سلسلة التوريد).</li>
+                    </ul>
+                </li>
+                <li><strong>عوامل خارجية:</strong> 
+                    <ul>
+                        <li>الفرص (Opportunities): ابتكارات، عادات مجتمعية جديدة، أو شراكات لزيادة الربح.</li>
+                        <li>التهديدات (Threats): عناصر تؤذي الشركة (تغييرات اقتصادية، قوانين سلبية، ديون كبيرة).</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>تحليل PESTLE:</h4>
+            <p>إطار لتحليل ومراقبة العوامل البيئية الخارجية الستة الأساسية : السياسية (Political)، الاقتصادية (Economic)، الاجتماعية (Social)، التكنولوجية (Technological)، البيئية (Environmental)، والقانونية (Legal).</p>
+
+            <h3>6. تحليل ومصفوفة المنافسين (Competitor Analysis)</h3>
+            <ul>
+                <li><strong>الغرض:</strong> معرفة القدرة على المنافسة والحصول على ميزة تنافسية مستدامة تجعل الشركة مصدر جذب للعملاء.</li>
+                <li><strong>أنواع المنافسين:</strong>
+                    <ul>
+                        <li>مباشر: يقدم نفس المنتج أو الخدمة لشركتك.</li>
+                        <li>غير مباشر: يغذي نفس الحاجة أو الإشباع لكن عبر منتجات أخرى (مثل بيبسي والعصائر).</li>
+                        <li>مستقبلي: من المحتمل أن يبدأ نشاطه في المستقبل (مباشر أو غير مباشر).</li>
+                    </ul>
+                </li>
+                <li><strong>الوسائل المشروعة والقانونية لجمع المعلومات:</strong> تصفح صفحات التواصل الاجتماعي، المواقع الإلكترونية للمنافسين، الزيارة الشخصية، تقمص دور العميل بشكل مباشر، حضور المهرجانات والمناسبات للشركات، والتعرف على عملاء وموظفي المنافسين.</li>
+                <li><strong>مصفوفة تحليل المنافسين (Competitive Analysis Grid):</strong> تحديد 5 إلى 10 جوانب تنافسية، ومقارنة الشركة مع كل منافس بوضع كلمات تقييمية (أفضل، يساوي، أقل) أو نسب مئوية لتحديد جوانب التفوق وبناء ميزة تنافسية مستدامة.</li>
+            </ul>
+
+            <h3>7. نموذج قوى بورتر الخمسة للصناعة (Porter Five Forces Model)</h3>
+            <p>ابتكره البروفيسور "مايكل بورتر" من كلية هارفارد للأعمال عام 1980 لتحليل مستوى المنافسة والربحية داخل قطاع صناعي. يعتمد التنافس على 5 قوى أساسية:</p>
+            <ol>
+                <li><strong>تهديد المنافسين الجدد (Threat of new entrants):</strong> دخولهم يقلل فرص الربح. تقل خطورتهم كلما زادت حواجز الدخول مثل: ولاء العملاء للعلامة الحالية، متطلبات رأس المال الكبيرة، الاستثمارات الكبيرة في التسويق أو البحث والتطوير، والحاجة للخبرة التراكمية.</li>
+                <li><strong>القدرة التفاوضية للموردين (Bargaining power of suppliers):</strong> قوتهم تكمن في رفع الأسعار أو تقليل جودة السلع. يزداد نفوذهم كلما قل عدد الموردين المتاحين؛ وتكون الشركة في وضع أفضل عند وفرة الموردين البدلاء.</li>
+                <li><strong>القدرة التفاوضية للمشترين / العملاء (Bargaining power of buyers):</strong> تزداد قوتهم عندما يكون عددهم قليلاً، وعند وفرة البدائل المتاحة. أتاح الإنترنت للعملاء مقارنة الأسعار بسهولة والوصول للعروض مما زاد من قوتهم، ويجب تقليل قوتهم عبر التمييز.</li>
+                <li><strong>تهديد المنتجات أو الخدمات البديلة (Threat of substitute products or services):</strong> وجود البدائل يمنح العملاء حرية التنقل ويقلل من اختيار منتجك. يجب النظر لكل منتج يخدم حاجة مماثلة حتى لو صنف بشكل مختلف.</li>
+                <li><strong>شدة المنافسة داخل القطاع (Rivalry among existing competitors):</strong> يكون التنافس مرتفعًا وحرب الأسعار والإعلانات مشتعلة عندما: يتساوى المنافسون في الحجم والقوة، تنمو الصناعة ببطء، تنخفض حصة شركتك بالسوق، أو عندما تكون حواجز خروج الشركات من السوق عالية (مما يجبرهم على البقاء رغم انخفاض هوامش الربح).</li>
+            </ol>
+        `;
+
+        const unit8Content = `
+            <h2>الوحدة الثامنة: صياغة خطة العمل (Formulating the Business Plan)</h2>
+            
+            <h3>1. مفهوم وخصائص خطة العمل (Business Plan)</h3>
+            <ul>
+                <li><strong>التعريف:</strong> أداة تخطيط تقوم على أساس تقييم الفكرة وتحليل الجدوى ونموذج العمل التجاري. أو هي وثيقة رئيسة لأي مشروع تحدد الإجراءات والخطوات، الموارد المادية والبشرية، توافر الآلات، وقت البدء، تحديد المسؤولين، والتنبؤ بالنجاح أو الفشل لتحقيق الأهداف خلال فترة زمنية محددة.</li>
+                <li><strong>خصائص خطة العمل الخمسة:</strong>
+                    <ol>
+                        <li>وجود هدف واضح ودقيق تصمم الخطة للوصول إليه.</li>
+                        <li>تحديد خطوات الوصول للهدف بالتفصيل مع مراعاة التوقيت ومراحل التنفيذ.</li>
+                        <li>تحديد الإمكانات والقدرات المتاحة للعمل ضمن حدودها.</li>
+                        <li>وضع خطط بديلة ومساندة عند الحاجة.</li>
+                        <li>المتابعة والتقييم المستمر لمسيرة المشروع.</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>2. فوائد ومكتبي خطة العمل ومن يكتبها ويقرأها</h3>
+            <ul>
+                <li><strong>الفوائد الست:</strong>
+                    <ol>
+                        <li>تحويل الفكرة لواقع وتأسيس مشروع ناجح وفعال.</li>
+                        <li>تحديد متطلبات المشروع والإمكانيات المتوفرة.</li>
+                        <li>ترتيب الأفكار وتحديد الأهداف بدقة ووضوح.</li>
+                        <li>تقليل احتمال الفشل والخسارة بدراسة العقبات مسبقًا ووضع حلول جذرية.</li>
+                        <li>المساهمة في اتخاذ القرار النهائي حول إنشاء مشروع جديد أو تطوير الحالي.</li>
+                        <li>الحصول على رؤية مستقبلية لسوق العمل ومتغيراته لتطوير طبيعة العمل.</li>
+                    </ol>
+                </li>
+                <li><strong>من يكتب الخطة؟:</strong> يجب إعداد خطة العمل من قبل صاحب المشروع نفسه. ويمكنه التشاور مع: المحامين، المحاسبين، مستشاري التسويق، المهندسين، مراكز تطوير الأعمال الصغيرة (SBDCs)، الجامعات، الأصدقاء والأقارب، والإنترنت.</li>
+                <li><strong>من يقرأ خطة العمل؟:</strong> (1) المقرضون، (2) المستثمرون، (3) الشركاء (الموردون والموزعون)، (4) فريق الإدارة والموظفون، (5) العملاء.</li>
+            </ul>
+
+            <h3>3. مكونات خطة العمل بالتفصيل وحسب الترتيب النظامي</h3>
+            <p>يجب أن ترتب عناصر خطة العمل بالتسلسل التالي:</p>
+            <ol>
+                <li><strong>الملخص التنفيذي (Executive summary):</strong> أول أجزاء الخطة؛ يتضمن رسالة الشركة ومجالات تركيزها، وصفًا مقتضبًا للمنتجات والخدمات، معلومات الملكية، وملخص المخططات المستقبلية.</li>
+                <li><strong>وصف الشركة (Company description):</strong> معلومات مهمة تشمل: اسم وعنوان العمل، أسماء وعناوين المدراء، طبيعة العمل، بيان بالتمويل المطلوب، وبيان سري للتقرير.</li>
+                <li><strong>بيان المهمة والرؤية (The Vision and Mission):</strong>
+                    <ul>
+                        <li>المهمة (Mission): تجيب على سؤال: "ما هو العمل الذي نحن فيه؟ وما سبب وجودنا هنا؟". تحدد بوضوح المنتج والسوق المستهدف وطبيعة العمل، ويفضل ألا تزيد عن 25 كلمة.</li>
+                        <li>الرؤية (Vision): تجيب على سؤال: "إلى أين نحن ذاهبون؟". تساعد الرؤية القوية بـ 4 طرق: توفر الاتجاه، تحدد وتوجه القرارات اليومية، تلهم وتحفز الناس للعمل، وتسمح بالمثابرة في مواجهة الشدائد كالنجم المرشد.</li>
+                    </ul>
+                </li>
+                <li><strong>التحليل البيئي والصناعي (Environmental and Industrial Analysis):</strong> يشمل النظرة والتوجهات المستقبلية، وتحليل المنافسين (تحديدهم وبحث استراتيجياتهم التسويقية لمقارنة نقاط القوة والضعف لشركتك بالنسبة لهم).</li>
+                <li><strong>تحليل السوق (Market analysis):</strong> يتضمن تجزئة السوق (تجميع المشترين المحتملين في شرائح ذات احتياجات مشتركة تستجيب بشكل مشابه للإجراءات التسويقية)، ووصف السوق المستهدف لتسهيل بناء خطة مبيعات.</li>
+                <li><strong>خطة التسويق (Marketing plan):</strong> خريطة طريق استراتيجية لتنظيم وتنفيذ وتتبع الاستراتيجية التسويقية عبر فرق التسويق المختلفة لتحقيق نفس الأهداف.</li>
+                <li><strong>الهيكل التنظيمي للشركة (The company's organizational structure):</strong> شكل الملكية (فردية، شراكة، شركة، فرانشايز)، تحديد الشركاء أو المساهمين الرئيسيين، خلفية إدارة الفريق، وأدوار ومسؤوليات أعضاء المنظمة.</li>
+                <li><strong>الخطة التشغيلية (Operational plan):</strong> خطة تفصيلية تهتم بالمهام اليومية، وتحدد الأشخاص المنفذين، ووقت وموعد التنفيذ، وتخصيص الموارد، وإدارة المخاطر. وتتضمن: (أ) وصف عمليات الشركة، (ب) التكنولوجيا المستخدمة، (ت) تدفق الطلبات للسلع/الخدمات.</li>
+                <li><strong>خطة الإنتاج (Production plan):</strong> عملية تمهيدية مبدئية لرسم خطوات العملية الإنتاجية والخط الإنتاجي الحالي أو الجديد. وتشمل: (أ) عمليات التصنيع، (ب) البنية التحتية اللازمة، (ج) الآلات والمعدات، (د) أسماء موردي المواد الخام.</li>
+                <li><strong>التوقعات المالية (Financial projections):</strong> توضيح مدى القدرة على تحقيق أرباح كافية لسداد القروض أو جني عوائد للمستثمرين. تستعرض المبيعات والنفقات والأرباح شهريًا أو ربعيًا على مدار ثلاث سنوات على الأقل مع ضرورة تحري الدقة.</li>
+                <li><strong>الملاحق (Appendices):</strong> تشمل ملخص تحليل الجدوى ورد فعل العملاء، أبحاث السوق، والسير الذاتية لأعضاء فريق الإدارة.</li>
+            </ol>
+
+            <h3>4. تحديث خطة العمل (Update The Business Plan)</h3>
+            <p>يمكن أن تصبح خطة العمل قديمة بمرور الوقت وتغير الظروف. العوامل البيئية (الاقتصاد، العملاء، التكنولوجيا، المنافسة) أو الداخلية (فقدان أو إضافة موظفين رئيسيين) تتطلب مراجعة وتعديل اتجاه الخطة لتأمين استمرار المشروع في مسار النجاح.</p>
+
+            <h3>5. أسباب فشل بعض خطط الأعمال</h3>
+            <p>تفشل بعض الخطط للأسباب التالية:</p>
+            <ul>
+                <li>الأهداف التي وضعها صاحب المشروع غير معقولة وغير منطقية.</li>
+                <li>الأهداف غير قابلة للقياس.</li>
+                <li>لم يلتزم صاحب المشروع التزامًا تامًا تجاه الشركة أو العائلة.</li>
+                <li>صاحب المشروع ليس لديه خبرة في الأعمال المخطط لها.</li>
+                <li>صاحب المشروع ليس لديه أي إحساس بالتهديدات أو نقاط الضعف المحتملة للعمل.</li>
+                <li>لم يتم تحديد حاجة العملاء للمنتج أو الخدمة المقترحة بدقة.</li>
+            </ul>
+        `;
+
+        const unit9Content = `
+            <h2>الوحدة التاسعة: النموذج الأولي للمنتج / الخدمة (Product / Service Prototype)</h2>
+            
+            <h3>1. مفهوم النموذج الأولي (Prototype)</h3>
+            <ul>
+                <li><strong>التعريف:</strong> نسخة نموذجية أو محاكاة للمنتج تُستخدم لتقييم المنتج واختبار الأفكار والتحقق من صحتها قبل طرحه للعميل أو المستخدم النهائي وتوصيلها لأصحاب المصلحة وفريق التطوير.</li>
+                <li><strong>مستوى الدقة:</strong> يمكن أن تكون بسيطة مثل رسم لوحة العمل (Storyboard) المرسومة على الورق لتجسيد تجربة المستخدم، أو بالتفصيل مثل مجسم بالحجم الطبيعي الكامل.</li>
+            </ul>
+
+            <h3>2. الأسباب الأربعة لبناء النموذج الأولي</h3>
+            <p>نقوم بعمل نموذج أولي للأسباب المهمة التالية:</p>
+            <ol>
+                <li><strong>الفهم (To Understanding):</strong> طريقة رائعة لفهم المشكلة واكتشاف أفضل طريقة للتعامل معها بسرعة عبر رسم أشكال مختلفة، ومناقشة الأفكار مع أعضاء الفريق وحل المشكلات من زوايا مختلفة وإتاحة حرية التفكير.</li>
+                <li><strong>الاختبار والتحسين (To Testing and improvement):</strong> السبب الرئيسي للنموذج الأولي؛ حيث يسمح بالبحث في أجزاء معينة من التصميم وتكراره لدعم أو دحض الافتراضات واكتساب رؤية واضحة (النماذج هنا سريعة ويمكن التخلص منها بعد الفحص).</li>
+                <li><strong>التواصل (To communicate):</strong> التواصل مع الفريق، المستثمرين، أصحاب المصلحة، أو المستخدمين النهائيين. من الأفضل عرض فكرة ملموسة للإشارة إليها بدلاً من مطالبة الجمهور بتخيلها، لأن الكلام وحده يخلق صورًا ذهنية مختلفة ويصعب موائمة التوقعات.</li>
+                <li><strong>الدفاع عن اختيار (To Advocate):</strong> استخدامه للدفاع عن تصميم معين أو تجربة مستخدم أفضل ومشاركة النتائج المقنعة مع الإدارة ومالكي المنتج.</li>
+            </ol>
+
+            <h3>3. فوائد النماذج الأولية الستة</h3>
+            <ol>
+                <li><strong>تخلق رؤية مقنعة:</strong> تفشل وثائق المواصفات التقليدية لأنها لا تري الناس ما يمكن فعله، بينما يتيح النموذج الأولي تجربة المنتج ماديًا وتوحيد الناس حول رؤية مشتركة.</li>
+                <li><strong>تقلل سوء الفهم:</strong> تظهر لأصحاب العمل ما ستصنع بدقة بدلاً من ملء الثغرات بخيالهم، مما يمنع التغييرات الكثيرة بعد بدء العمل الفعلي.</li>
+                <li><strong>تحد من كثرة التغيير:</strong> التغييرات تولد من سوء التخيل؛ والتمثيل المرئي في الأيام الأولى كـ "مواصفات حية" يساعد على رؤية المفقود أو الخطأ في وقت مبكر حين يمكن تعديل الأمور بسهولة وأقل كلفة.</li>
+                <li><strong>مثالية للاختبار:</strong> توفير منتج ملموس يوضع أمام المستخدمين لتجربته وتحديد المشاكل في وقت مبكر لإصلاحها بتكلفة غير مكلفة.</li>
+                <li><strong>تحافظ على انخفاض التكاليف (توفير المال):</strong> عن طريق 4 طرق:
+                    <ul>
+                        <li>(1) تقليل الوقت المقضي في الاجتماعات للاتفاق على اتجاه.</li>
+                        <li>(2) تجنب التغييرات الناتجة عن سوء الفهم مع أصحاب العمل.</li>
+                        <li>(3) الحد من تكاليف تحديث الخصائص الجديدة.</li>
+                        <li>(4) تجنب إضافة خصائص غير مطلوبة بالأساس.</li>
+                    </ul>
+                </li>
+                <li><strong>المساعدة على التفكير:</strong> تمكن المبتكر أو الفريق من تطوير الفكرة ببنائها ماديًا، وتجسيد الأفكار يطلق العنان للمخيلة لتحسين الخدمة.</li>
+            </ol>
+
+            <h3>4. الطرق العشر الشائعة لإنشاء النماذج الأولية</h3>
+            <p>تنقسم النماذج للمنتجات الرقمية والمادية إلى 10 أنواع أساسية:</p>
+            <ol>
+                <li><strong>اسكتشات ورسوم بيانية (Sketches and diagrams):</strong> الشكل الأساسي والأكثر استخدامًا لمشاركة المفاهيم؛ سواء برسم فكرة أولية على منديل في غداء أو صورة رسمية بالمسطرة والحبر لبدء وضع المفاهيم.</li>
+                <li><strong>الطباعة ثلاثية الأبعاد أو النموذج السريع (3D printing or rapid model):</strong> تتيح للمهندسين إنشاء نموذج واقعي بسرعة باستخدام الكمبيوتر وآلة الطباعة، مما يسرع الانتقال للإنتاج لتحديد العيوب وإعادة البرمجة الرقمية للملف بسهولة (تستخدم للمحركات وأجزاء الطائرات).</li>
+                <li><strong>النموذج المادي (Physical model):</strong> يمكن صنعه من أي شيء (طوب بناء، ورق حرف)؛ لا يحتاج لأجزاء عاملة بل يعطي فكرة تقريبية عن التصميم والمفاهيم المتدرجة قبل الإنتاج واسع النطاق (مفيد للتصاميم المعمارية والأشياء الصغيرة).</li>
+                <li><strong>إطار سلكي (Wireframe):</strong> رسم تخطيطي رقمي أو تخطيط للمنتج يستخدم بكثرة في مواقع الويب والبرامج الرقمية؛ حيث يستخدمه الجميع (من مؤلفي النصوص إلى المطورين) للتنقل في هيكل وموضع المحتوى.</li>
+                <li><strong>لعب الأدوار من خلال الواقع الافتراضي أو المعزز (Role-play through VR/AR):</strong> الاستفادة من أدوات التصور الرقمي لاختبار التطوير عبر "السير" في المكان كأن البناء قد انتهى بالفعل باستخدام نظارات الواقع الافتراضي أو الهاتف الذكي (مثل تصميم منتزه ترفيهي جديد).</li>
+                <li><strong>نماذج الجدوى الأولية (Feasibility prototypes):</strong> تستخدم رقميًا وماديًا لاختبار ميزات معينة تمت إضافتها في مرحلة لاحقة من عملية التصميم لزيادة وتعديل التصميم والتكيف مع ظهور أفكار جديدة عند اكتشاف جزء مفقود.</li>
+                <li><strong>النموذج الأولي للنموذج العملي (Working model prototype):</strong> اتباع الخطط الأولية لبناء نموذج لاختبار فكرة المنتج لمعرفة ما إذا كان يعمل فعليًا بالطريقة المطلوبة، وهو مفيد للاختراعات الآلية والتصاميم ذات الأجزاء المتحركة.</li>
+                <li><strong>نماذج الفيديو الأولية (Video prototype):</strong> تقديم المنتج في شكل فيديو متحرك أو محاكاة تشرح المشروع وتمثله بيانيًا لمساعدة الزملاء أو الإدارة أو المستهلكين على تصور المنتج.</li>
+                <li><strong>النموذج الأولي الأفقي (A horizontal prototype):</strong> يظهر التصميم من طرف المستخدم (الواجهة الأمامية)؛ ويعرض القوائم والنوافذ والشاشات على الكمبيوتر لاختبار كيفية تفاعل المستخدمين البشريين مع واجهة البرنامج.</li>
+                <li><strong>النموذج الأولي العمودي (A Vertical prototype):</strong> يتم إنشاؤه رقميًا لتحسين وتصميم قواعد البيانات؛ ويعتبر من نماذج "الواجهة الخلفية" (Back-end) المستخدمة لاختبار الوظائف والعمليات المهمة في البرامج قبل الانتقال لمراحل التصميم الأخرى.</li>
+            </ol>
+        `;
+
+        const units = [
+            { id: 5, title: "الوحدة الخامسة: تحليل الجدوى", available: true, content: unit5Content },
+            { id: 6, title: "الوحدة السادسة: نموذج العمل", available: true, content: unit6Content },
+            { id: 7, title: "الوحدة السابعة: تحليل الصناعة", available: true, content: unit7Content },
+            { id: 8, title: "الوحدة الثامنة: خطة العمل", available: true, content: unit8Content },
+            { id: 9, title: "الوحدة التاسعة: النموذج الأولي", available: true, content: unit9Content }
+        ];
+
+        const questionsData = [
+    {
+        "q": "الخطوة التالية مباشرة بعد عملية تحديد الأفكار وتوليدها في خطوات إطلاق العمل التجاري الناجح هي:",
+        "options": [
+            "كتابة خطة عمل",
+            "تطوير نموذج العمل التجاري",
+            "تقييم الأفكار",
+            "إطلاق وبدء العمل"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "تبدأ أفضل الأفكار التجارية دائمًا بمجموعة من العملاء والزبائن الذين لديهم:",
+        "options": [
+            "مهارات تقنية عالية",
+            "مشكلة أو حاجة مشتركة",
+            "رأس مال ضخم جاهز للاستثمار",
+            "علاقات دولية مفتوحة"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "لوحة رسم وتصميم الأفكار (Idea Sketch Pad) هي أداة فعالة من تطوير:",
+        "options": [
+            "أليكس بروتن",
+            "ألكسندر أوستر فالدر",
+            "مايكل بورتر",
+            "إيف بينور"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "وفقًا لمعايير لوحة رسم وتصميم الفكرة، في مثال حلوى الأطفال (Candy)، يُعتبر الأطفال هم:",
+        "options": [
+            "المشترون",
+            "العملاء",
+            "الممولون",
+            "المستخدمون"
+        ],
+        "correct": 3
+    },
+    {
+        "q": "كم عدد المعايير الرئيسية التي تتناولها لوحة رسم الفكرة (Idea Sketch Pad) لمساعدة رائد الأعمال على تقييم الأفكار؟",
+        "options": [
+            "3 معايير",
+            "4 معايير",
+            "5 معايير",
+            "7 معايير"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "المورد أو القيمة والأنشطة والعمليات التي تميز الشركة عن غيرها من المنافسين ويصعب تقليدها تسمى:",
+        "options": [
+            "التوقعات المالية",
+            "الكفاءة الرئيسية أو الأساسية",
+            "القنوات التشغيلية",
+            "الهيكل التنظيمي"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يتكون تحليل الجدوى (Feasibility Analysis) من كم مكون أساسي مترابط؟",
+        "options": [
+            "مكونين اثنين",
+            "ثلاثة مكونات",
+            "أربعة مكونات",
+            "خمسة مكونات"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "دخول النساء إلى سوق العمل الأمريكي بمعدلات أعلى في السبعينيات والثمانينيات يعتبر نتيجة للتغيير في:",
+        "options": [
+            "القوى التكنولوجية",
+            "القوى الاقتصادية",
+            "القوى الاجتماعية والثقافية",
+            "القوى العالمية"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "تغيير كيفية شراء العملاء للموسيقى والاستماع إليها عبر شركات مثل Pandora و Spotify و iTunes يمثل تأثير:",
+        "options": [
+            "القوى السياسية",
+            "القوى التكنولوجية",
+            "القوى الديمغرافية",
+            "القوى العالمية"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "العلم الاجتماعي الحديث الذي يشمل البحث في تغيرات السكان من حيث عددهم، ومعدل نموهم، وتوزيعهم في فئات العمر والجنس، والهجرة هو:",
+        "options": [
+            "علم الاقتصاد الكلي",
+            "علم الديمغرافيا",
+            "علم الاجتماع الثقافي",
+            "علم الجدوى المالية"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "ازدهار قطاع التعلم الإلكتروني خلال فترة الكساد العظيم أو خلال فترة جائحة كورونا يعود إلى تأثير:",
+        "options": [
+            "القوى القانونية",
+            "القوى التكنولوجية الصرفة",
+            "القوى الاقتصادية",
+            "القوى العالمية المفتوحة"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "أي من طرق البحث الأولي التالية تعد الأكثر صعوبة للتنسيق وقد تكون مكلفة جداً لرواد الأعمال؟",
+        "options": [
+            "استبيانات واستفتاءات العملاء",
+            "مجموعات التركيز الافتراضية",
+            "بناء النماذج الأولية",
+            "التجارب المنزلية"
+        ],
+        "correct": 3
+    },
+    {
+        "q": "تتراوح مجموعة العملاء المحتملين في مجموعات التركيز عادة من:",
+        "options": [
+            "2 إلى 4 أشخاص",
+            "5 إلى 10 أشخاص",
+            "15 إلى 20 شخصاً",
+            "30 إلى 50 شخصاً"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "في نظام التصنيف البسيط الموصى به لاستبيانات العملاء (مقياس من 1 إلى 5)، يمثل الرقم 1 عادةً:",
+        "options": [
+            "بالتأكيد سأشتري",
+            "بالتأكيد لن أشتري",
+            "محايد تماماً",
+            "ربما أشتري في المستقبل"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "الموقع الإلكتروني يمثل قاعدة بيانات مهمة في الأردن تتبع لـ:",
+        "options": [
+            "جمعية المستثمرين الأردنية",
+            "دائرة الإحصاءات العامة",
+            "وزارة الصناعة والتجارة",
+            "مركز الدراسات الاستراتيجية"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "المصطلح الاقتصادي الذي يقصد به الأموال والمواد والأدوات اللازمة لإنشاء نشاط اقتصادي أو تجاري بهدف الربح هو:",
+        "options": [
+            "التدفق النقدي",
+            "العائد على الاستثمار",
+            "رأس المال",
+            "الأرباح المقدرة"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "طريقة قياس المنفعة المالية التي تكسبها من الاستثمار بهدف تحديد كفاءته وجدواه من الناحية المالية تسمى:",
+        "options": [
+            "وقت التدفق النقدي",
+            "العائد على الاستثمار",
+            "الأرباح المقدرة الفصلية",
+            "متطلبات رأس المال الملموسة"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يعود الفضل في ابتكار مخطط نموذج العمل التجاري إلى المؤلفين:",
+        "options": [
+            "أليكس بروتن ومايكل بورتر",
+            "أليكس اوستر فالدر وإيف بينور",
+            "ليث المومني وجاك دورسي",
+            "رأفت أبو شعبان وبوب لي"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "تم تقديم مخطط نموذج العمل التجاري لأول مرة كأداة للتخطيط الاستراتيجي في كتاب أطلق عام:",
+        "options": [
+            "1980",
+            "2000",
+            "2010",
+            "2015"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "يشير مصطلح (B2C) في شرائح العملاء إلى أن طبيعة العلاقة تكون مع:",
+        "options": [
+            "شركة أخرى",
+            "مؤسسة حكومية",
+            "المستهلك النهائي",
+            "المنظمات الدولية والمحلية"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "الوعود التي تقطعها الشركة للعملاء بمدى وطريقة الاستفادة من المنتجات أو الخدمات المعروضة تسمى:",
+        "options": [
+            "شرائح العملاء",
+            "عرض القيمة",
+            "الأنشطة التشغيلية",
+            "هيكل التكلفة"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "ما هي الأداة الهامة المكونة من فئات الزبائن والقيمة المقدمة والتي ترتبط بنموذج الأعمال لتوضيح ما يستهدف الزبون؟",
+        "options": [
+            "لوحة رسم الفكرة",
+            "مصفوفة تحليل المنافسين",
+            "إطار أو مخطط عرض القيمة",
+            "الخطة التشغيلية التفصيلية"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "عند تقديم القيمة للعميل من خلال إضافة خاصية جديدة أو منتج أو خدمة مبتكرة بالكامل، فإن ذلك يسمى:",
+        "options": [
+            "الحداثة",
+            "التخصيص",
+            "الأداء",
+            "سهولة الاستعمال"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "الخيارات المتاحة للعميل المحتمل في الوصول إلى المنتجات أو الخدمات المخطط لها ضمن نموذج الأعمال تسمى:",
+        "options": [
+            "الأنشطة الرئيسية",
+            "القنوات",
+            "مصادر الدخل",
+            "الشركاء الرئيسيون"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "تشمل الأنشطة الرئيسية في نموذج العمل التجاري مجموعة من الإجراءات مثل:",
+        "options": [
+            "الموارد البشرية والمالية والأصول",
+            "تصنيع المنتجات والاستشارات والتطوير التقني",
+            "خدمات الاتصال بالإنترنت والسيارات والطاقة",
+            "الموردين والموزعين والجهات الخارجية"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "تشير الأصول المادية والمالية والبشرية بالاضافة إلى سيارات العمل، الطاقة الكهربائية، والإنترنت في المخطط إلى:",
+        "options": [
+            "الأنشطة الرئيسية",
+            "الموارد الرئيسية",
+            "الشركاء الرئيسيين",
+            "هيكل التكلفة"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يُعرف إجمالي التكاليف النقدية التي يحتاجها عمل الشركة فيما يتعلق بالمنتج أو الخدمة موضوع المخطط بـ:",
+        "options": [
+            "هيكل التكلفة",
+            "مصادر الدخل",
+            "التوقعات المالية الثلاثية",
+            "متطلبات رأس المال الثابتة"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "العنصر الأخير الذي يُظهر جميع التدفقات النقدية التي تحوّل عروض القيمة المقدمة للعملاء إلى مكاسب مالية هو:",
+        "options": [
+            "هيكل التكلفة",
+            "الشركاء الرئيسيون",
+            "القنوات والتوزيع",
+            "مصادر الدخل"
+        ],
+        "correct": 3
+    },
+    {
+        "q": "مجموعة الشركات والمنظمات التي توفر منتجات متماثلة أو متشابهة، أو تغطي نفس الحاجة أو تشبع ذات الرغبة للعميل تسمى:",
+        "options": [
+            "خطة العمل",
+            "تجزئة السوق",
+            "الصناعة",
+            "الهيكل التنظيمي"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "أي من الخيارات التالية يعتبر من الطرق المعتمدة والمذكورة لإجراء تحليل الصناعة؟",
+        "options": [
+            "لوحة رسم الفكرة",
+            "تحليل PESTLE للبيئة الخارجية",
+            "الخطة التشغيلية اليومية",
+            "بناء النماذج الأولية الفنية"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "وفقًا لنموذج تحليل الصناعة، الإجابة بكلمة \"لا\" على السؤال الأول (هل هذه الصناعة منطقية ومقبولة لافتتاح مشروع) تعني:",
+        "options": [
+            "الانتقال فورًا إلى السؤال الثاني",
+            "قم بالتفكير بصناعة أو مشروع آخر",
+            "صياغة الخطة التسويقية للمشروع",
+            "البدء بدراسة الجدوى المالية"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "في تحليل سوات (SWOT)، تمثل نقاط القوة ونقاط الضعف عناصر تقييم:",
+        "options": [
+            "البيئة الخارجية الكلية للشركة",
+            "البيئة الداخلية للشركة",
+            "القوى التنافسية الخارجية لبورتر",
+            "الاتجاهات العالمية الكبرى"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "وفقًا لستاربكس، تعتبر \"الأسعار العالية\" و \"المنتجات القابلة للتقليد من شركات منافسة\" أمثلة على:",
+        "options": [
+            "نقاط القوة",
+            "نقاط الضعف",
+            "الفرص المتاحة",
+            "التهديدات الخارجية"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "في تحليل SWOT، تمثل \"التغييرات الاقتصادية في السوق أو تغيرات القوانين والأنظمة التي تؤثر بشكل سلبي\":",
+        "options": [
+            "نقاط الضعف الداخلية",
+            "التهديدات الخارجية",
+            "نقاط القوة التشغيلية",
+            "الفرص الاستراتيجية"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يشير حرف (T) في اختصار تحليل العوامل البيئية الخارجية الكلية الستة (PESTEL) إلى العوامل:",
+        "options": [
+            "السياسية",
+            "التكنولوجية",
+            "القانونية",
+            "البيئية"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "المنافس الذي يقدم نفس المنتج أو الخدمة لشركتك في السوق يسمى:",
+        "options": [
+            "منافس مباشر",
+            "منافس غير مباشر",
+            "منافس مستقبلي",
+            "منافس فرعي"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "المنافس الذي يغذي نفس الحاجة أو الإشباع لشركتك ولكن عبر منتجات أخرى يسمى:",
+        "options": [
+            "منافس مباشر",
+            "منافس غير مباشر",
+            "منافس مستقبلي",
+            "شريك رئيسي"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "في وسيلة \"مصفوفة تحليل المنافسين\"، تحدد الشركات عادة كم جانب تنافسي لإجراء التحليل عليها؟",
+        "options": [
+            "جانبين اثنين فقط",
+            "خمسة إلى عشرة جوانب",
+            "خمسة عشر جانبًا",
+            "عشرين جانبًا"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "إطار العمل الذي يساعد في تحليل مستوى المنافسة داخل صناعة معينة وابتكره البروفيسور مايكل بورتر عام 1980 يسمى:",
+        "options": [
+            "تحليل سوات",
+            "تحليل PESTEL",
+            "قوى بورتر الخمسة للصناعة",
+            "لوحة رسم الفكرة"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "أي مما يلي يعتبر من الأمثلة على العوائق وحواجز الدخول التي تواجه المنافسين الجدد وتقلل خطورتهم؟",
+        "options": [
+            "قلة عدد الموردين في السوق",
+            "ولاء العملاء إلى علامتك التجارية الحالية",
+            "انخفاض متطلبات رأس المال",
+            "سهولة مقارنة الأسعار عبر الإنترنت"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "تزداد القوة والتحكم والنفوذ والقدرة التفاوضية للموردين تجاه شركتك عندما:",
+        "options": [
+            "يزداد عدد الموردين البدلاء في السوق",
+            "يقل عدد الموردين في الصناعة",
+            "يزداد عدد المشترين بشكل كبير",
+            "تنخفض تكاليف المواد الخام"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "تكون المنافسة الحالية داخل القطاع عالية جداً وتشتعل حروب الإعلانات والأسعار عندما تكون حواجز خروج شركة من السوق:",
+        "options": [
+            "منخفضة جداً",
+            "معدومة تماماً",
+            "عالية",
+            "مرنة وسهلة التعديل"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "عبارة عن وثيقة رئيسة لأي مشروع يتم فيها تحديد الإجراءات والخطوات الواجب اتخاذها والموارد المادية والبشرية لضمان النجاح هي:",
+        "options": [
+            "لوحة رسم الفكرة",
+            "مخطط عرض القيمة",
+            "خطة العمل",
+            "مصفوفة تحليل المنافسين"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "أي مما يلي يعتبر من خصائص خطة العمل الخمسة الأساسية؟",
+        "options": [
+            "الاعتماد الكامل على فكرة واحدة دون بدائل",
+            "وضع خطط بديلة ومساندة عند الحاجة",
+            "عدم تحديد التوقيت ومراحل التنفيذ بدقة",
+            "كتابتها بشكل سري بالكامل دون أهداف واضحة"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يجب إعداد وكتابة خطة العمل للمشروع الجديد من قِبل:",
+        "options": [
+            "المحامين والمحاسبين بشكل مستقل",
+            "صاحب المشروع",
+            "المستثمرين الخارجيين فقط",
+            "الموردين والموزعين"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يمثل أول أجزاء خطة العمل، ويتضمن رسالة الشركة، ومجالات تركيزها، ووصف مقتضب للمنتجات والخدمات وهو:",
+        "options": [
+            "وصف الشركة",
+            "الملخص التنفيذي",
+            "بيان المهمة والرؤية",
+            "الخطة التشغيلية"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "كقاعدة عامة جيدة في إعداد خطط الأعمال، يجب ألا يزيد بيان المهمة عن:",
+        "options": [
+            "10 كلمات",
+            "25 كلمة",
+            "50 كلمة",
+            "100 كلمة"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "القسم في خطة العمل الذي يستعرض المبيعات والنفقات والأرباح المتوقعة بصفة شهرية أو ربعية يسمى:",
+        "options": [
+            "الخطة التشغيلية",
+            "خطة الإنتاج",
+            "التوقعات المالية",
+            "التحليل البيئي والصناعي"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "احرص في قسم التوقعات المالية في خطة العمل على استعراض المبيعات والنفقات المتوقعة على مدار:",
+        "options": [
+            "ستة أشهر فقط",
+            "سنة واحدة على الأكثر",
+            "ثلاث سنوات على الأقل",
+            "خمس عشرة سنة"
+        ],
+        "correct": 2
+    },
+    {
+        "q": "نسخة نموذجية أو محاكاة للمنتج والتي تستخدم لتقييم واختبار الأفكار والتحقق من صحتها قبل طرحه للعميل تسمى:",
+        "options": [
+            "خطة العمل",
+            "النموذج الأولي",
+            "مصفوفة المنافسين",
+            "الملخص التنفيذي"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "عملية تقييم الأفكار هي عملية التأكد من حاجة هذه الفكرة في السوق وتطوير حل لتلك الحاجة وتحديد قدرة رائد الأعمال على تحويلها لعمل تجاري.",
+        "options": [
+            "صح",
+            "خطأ"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "وفقًا للوحة رسم وتصميم الأفكار، يعتبر الأطفال هم المشترون (العملاء) بينما آباؤهم هم المستخدمون لحلوى الأطفال.",
+        "options": [
+            "صح",
+            "خطأ (الأطفال هم المستخدمون، والآباء هم المشترون)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "النماذج الأولية في مرحلة \"الفهم\" تمكنك من حل المشاكل وذلك من خلال التطرق للمشكلة من زاوية واحدة وثابتة فقط.",
+        "options": [
+            "صح",
+            "خطأ (تمكنك من حل المشاكل بالتطرق للمشكلة من زوايا مختلفة)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "مع دخول المزيد من النساء إلى القوى العاملة، تضاعفت نسبة العائلات التي تمتلك سيارتين بين عامي 1960 و 2013 في أمريكا.",
+        "options": [
+            "صح",
+            "خطأ"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "تعتبر تنبؤات استبيانات واستفتاءات العملاء بشكل عام موثوقة للغاية للتنبؤ الدقيق بسلوكيات العملاء الفعلية في السوق.",
+        "options": [
+            "صح",
+            "خطأ (لا تعتبر تنبؤات الاستطلاعات موثوقة للغاية لسلوكيات العملاء)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يعود الفضل لابتكار مخطط نموذج العمل التجاري إلى أليكس بروتن الذي قدمه في كتابه عام 2010.",
+        "options": [
+            "صح",
+            "خطأ (يعود الفضل إلى ألكسندر أوستر فالدر وإيف بينور)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يشير مصطلح (B2B) في شرائح العملاء إلى أن الفئة المستهدفة بالمشروع هي شركة أخرى.",
+        "options": [
+            "صح",
+            "خطأ"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "من الضروري للشركة إعداد عرض قيمة واقعي قادرة على الالتزام به أمام العملاء، وعدم طرح عروض لا يمكن تحقيقها.",
+        "options": [
+            "صح",
+            "خطأ"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "تشمل الموارد الرئيسية في مخطط نموذج العمل التجاري الموارد المادية والأصول والمالية والبشرية فقط، ولا تشتمل على خدمات الاتصال بالإنترنت والسيارات.",
+        "options": [
+            "صح",
+            "خطأ (تشتمل أيضاً على خدمات الاتصال بالإنترنت والسيارات)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "تقول شركة بيبسي العملاقة إن منافسيها يقتصرون فقط وحصرياً على شركات المشروبات الغازية المماثلة مثل كوكا كولا.",
+        "options": [
+            "صح",
+            "خطأ (منافسوها هم جميع الشركات التي تغطي الحاجة الأساسية للعطش)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "نقاط القوة ونقاط الضعف في نموذج SWOT هي عناصر لتحليل البيئة الخارجية للشركة تحدد السلبيات والإيجابيات خارجها.",
+        "options": [
+            "صح",
+            "خطأ (هي عناصر لتحليل البيئة الداخلية للشركة)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "تعتبر السمعة السيئة، والنقص في القدرات والإمكانيات، أو الضعف في سلسلة التوريد من الأمثلة على نقاط الضعف الداخلية للشركة.",
+        "options": [
+            "صح",
+            "خطأ"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "أتاح الإنترنت للعملاء أن يصبحوا أكثر دراية وبالتالي أكثر قوة، حيث يمكنهم مقارنة الأسعار بسهولة عبر الإنترنت والوصول للعروض.",
+        "options": [
+            "صح",
+            "خطأ"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "يعتبر التنافس منخفضاً داخل القطاع عندما يكون هناك الكثير من المنافسين المتساوين تقريباً في الحجم والقوة، أو عندما تنمو الصناعة ببطء.",
+        "options": [
+            "صح",
+            "خطأ (يعتبر التنافس مرتفعاً وعالياً جداً في هذه الحالات)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يجب إعداد خطة العمل بالكامل من قِبل المحامين والمحاسبين والمستشارين دون أي تدخل أو إشراف من صاحب المشروع.",
+        "options": [
+            "صح",
+            "خطأ (يجب إعدادها من قبل صاحب المشروع وقد يتشاور معهم)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "يجيب بيان الرؤية في مكونات خطة العمل على السؤال الأساسي للمشروع التجاري وهو: \"ما هو العمل الذي نحن فيه؟\".",
+        "options": [
+            "صح",
+            "خطأ (بيان المهمة هو من يجيب على هذا السؤال)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "تفشل العديد من الأفكار في المشاريع ليس لأنها سيئة، بل لأن الناس لم يفهموها، ولهذا تفشل وثائق المواصفات التقليدية أحياناً.",
+        "options": [
+            "صح",
+            "خطأ"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "يساعد إنتاج تمثيل مرئي ملموس للمنتج (نموذج أولي) في الأيام الأولى للمشروع أصحاب العمل على رؤية ما هو مفقود أو خطأ مبكراً وتعديله بسهولة.",
+        "options": [
+            "صح",
+            "خطأ"
+        ],
+        "correct": 0
+    },
+    {
+        "q": "يعتبر النموذج الأولي الأفقي من نماذج \"الواجهة الخلفية\" المستخدمة رقمياً لتحسين تصميم قواعد البيانات.",
+        "options": [
+            "صح",
+            "خطأ (النموذج العمودي هو نموذج الواجهة الخلفية)"
+        ],
+        "correct": 1
+    },
+    {
+        "q": "بمجرد اكتمال تصميم النموذج ثلاثي الأبعاد، يمكن تعديله ببساطة بناءً على الملاحظات والاختبارات لأن ملف النموذج يحتاج فقط لإعادة برمجته رقمياً.",
+        "options": [
+            "صح",
+            "خطأ"
+        ],
+        "correct": 0
+    }
+];
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+                e.currentTarget.classList.add('active');
+
+                document.querySelectorAll('.section').forEach(sec => {
+                    sec.classList.remove('active');
+                    sec.style.animation = 'none';
+                    sec.offsetHeight; // trigger reflow
+                    sec.style.animation = null;
+                });
+
+                const targetId = e.currentTarget.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+                window.scrollTo(0, 0);
+            });
+        });
+
+        const unitsListEl = document.getElementById('units-list');
+        const unitTitleEl = document.getElementById('unit-title');
+        const unitContentEl = document.getElementById('unit-content');
+        const unitBadgeEl = document.getElementById('unit-badge');
+
+        function renderSidebar() {
+            unitsListEl.innerHTML = '';
+            units.forEach((u, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'unit-btn';
+                if(!u.available) btn.disabled = true;
+                
+                const icon = u.available ? '<i class="fa-solid fa-check text-success"></i>' : '<i class="fa-solid fa-lock"></i>';
+                btn.innerHTML = `<span>${u.title}</span> ${icon}`;
+                
+                if(u.available) {
+                    btn.addEventListener('click', () => loadUnit(u.id, btn));
+                }
+                
+                unitsListEl.appendChild(btn);
+            });
+        }
+
+        function loadUnit(id, btnElement) {
+
+            document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+            
+            const unit = units.find(u => u.id === id);
+            unitTitleEl.textContent = unit.title;
+            unitBadgeEl.style.display = 'inline-block';
+            
+            unitContentEl.style.opacity = 0;
+            setTimeout(() => {
+                unitContentEl.innerHTML = unit.content;
+                unitContentEl.style.transition = 'opacity 0.4s';
+                unitContentEl.style.opacity = 1;
+            }, 200);
+        }
+
+        renderSidebar();
+
+        let currentQuestions = [];
+        let currentQIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+
+        const setupView = document.getElementById('exam-setup');
+        const runningView = document.getElementById('exam-running');
+        const resultsView = document.getElementById('exam-results');
+        
+        const qTextEl = document.getElementById('q-text');
+        const qOptionsEl = document.getElementById('q-options');
+        const qCounterEl = document.getElementById('q-counter');
+        const qProgressEl = document.getElementById('q-progress');
+        const nextBtn = document.getElementById('next-q-btn');
+        const examTitleDisplay = document.getElementById('exam-title-display');
+
+        document.getElementById('start-exam-btn').addEventListener('click', () => {
+            if(questionsData.length === 0) {
+                alert('عذراً، بنك الأسئلة الشامل فارغ حالياً.');
+                return;
+            }
+
+            currentQuestions = [...questionsData].sort(() => Math.random() - 0.5); // خلط الأسئلة
+            currentQIndex = 0;
+            score = 0;
+            
+            examTitleDisplay.textContent = "الاختبار الشامل للفاينل";
+            
+            setupView.classList.remove('active');
+            runningView.classList.add('active');
+            
+            loadQuestion();
+        });
+
+        function loadQuestion() {
+            selectedOption = null;
+            nextBtn.disabled = true;
+            nextBtn.innerHTML = 'التالي <i class="fa-solid fa-arrow-left"></i>';
+            
+            const q = currentQuestions[currentQIndex];
+
+            qCounterEl.textContent = `سؤال ${currentQIndex + 1} / ${currentQuestions.length}`;
+            qProgressEl.style.width = `${((currentQIndex) / currentQuestions.length) * 100}%`;
+            
+            qTextEl.textContent = q.q;
+            qOptionsEl.innerHTML = '';
+            
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle"></i>`;
+                
+                btn.addEventListener('click', () => selectOption(index, btn));
+                qOptionsEl.appendChild(btn);
+            });
+        }
+
+        function selectOption(index, btnEl) {
+            if(selectedOption !== null) return; // منع التغيير بعد الاختيار
+            
+            selectedOption = index;
+            const q = currentQuestions[currentQIndex];
+            const isCorrect = (index === q.correct);
+            
+            if(isCorrect) score++;
+
+            const allBtns = qOptionsEl.querySelectorAll('.option-btn');
+            allBtns.forEach((b, i) => {
+                b.disabled = true;
+                const icon = b.querySelector('i');
+                if(i === q.correct) {
+                    b.classList.add('correct');
+                    icon.className = 'fa-solid fa-circle-check';
+                } else if(i === index && !isCorrect) {
+                    b.classList.add('wrong');
+                    icon.className = 'fa-solid fa-circle-xmark';
+                }
+            });
+            
+            nextBtn.disabled = false;
+            if(currentQIndex === currentQuestions.length - 1) {
+                nextBtn.innerHTML = 'عرض النتيجة <i class="fa-solid fa-flag-checkered"></i>';
+            }
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentQIndex++;
+            if(currentQIndex < currentQuestions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        function showResults() {
+            runningView.classList.remove('active');
+            resultsView.classList.add('active');
+            
+            qProgressEl.style.width = '100%';
+            
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            
+            document.getElementById('score-percentage').textContent = `${percentage}%`;
+            document.getElementById('correct-count').textContent = score;
+            document.getElementById('wrong-count').textContent = currentQuestions.length - score;
+            
+            const msgEl = document.getElementById('result-message');
+            const circle = document.querySelector('.score-circle');
+            
+            if(percentage >= 85) {
+                msgEl.textContent = 'ممتاز! مستوى رائع.';
+                msgEl.style.color = 'var(--success)';
+                circle.style.borderColor = 'var(--success)';
+            } else if(percentage >= 60) {
+                msgEl.textContent = 'جيد، لكن يمكنك التحسن أكثر.';
+                msgEl.style.color = 'var(--primary)';
+                circle.style.borderColor = 'var(--primary)';
+            } else {
+                msgEl.textContent = 'تحتاج لمراجعة المادة العلمية مرة أخرى.';
+                msgEl.style.color = 'var(--danger)';
+                circle.style.borderColor = 'var(--danger)';
+            }
+        }
+
+        document.getElementById('retry-btn').addEventListener('click', () => {
+            resultsView.classList.remove('active');
+            setupView.classList.add('active');
+
+            document.querySelector('.score-circle').style.borderColor = 'var(--primary)';
+        });
+
+        document.getElementById('home-q-count').textContent = questionsData.length;
+
+    </script>
+</body>
+</html>

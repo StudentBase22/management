@@ -812,12 +812,6 @@
                 padding: 0.8rem 1rem;
                 font-size: 1rem;
             }
-            .formatted-content table {
-                display: block;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                width: 100%;
-            }
         }
 
         #password-overlay {
@@ -882,15 +876,23 @@
             font-weight: 600;
         }
 
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem 0;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background: var(--surface-color);
+        }
         .formatted-content table {
             width: 100%;
             border-collapse: collapse;
-            margin: 2rem 0;
-            background: var(--surface-color);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin: 0 !important;
+            box-shadow: none !important;
+            border: none !important;
+            border-radius: 0 !important;
         }
         .formatted-content th {
             background: linear-gradient(90deg, var(--primary), var(--secondary));
@@ -1215,7 +1217,7 @@
 
     <h3>أنواع التنظيم</h3>
     <p>ينقسم التنظيم داخل المنظمات إلى نوعين متكاملين يحددان معاً طبيعة العمل والأداء:</p>
-    <table>
+    <div class="table-wrapper"><table>
         <thead>
             <tr>
                 <th>وجه المقارنة</th>
@@ -1250,7 +1252,7 @@
                 <td>إيجابيات: سرعة الإنجاز، خلق التعاون والعمل الجماعي. سلبيات: قد يعرقل خطط المنظمة إذا توسع بشكل مضر.</td>
             </tr>
         </tbody>
-    </table>
+    </table></div>
 </div>`;
 
         const unit2Content = `<div class="formatted-content">
@@ -1332,7 +1334,7 @@
     </ul>
 
     <h3>قنوات تدفق الاتصال في المنظمة</h3>
-    <table>
+    <div class="table-wrapper"><table>
         <thead>
             <tr>
                 <th>قناة الاتصال</th>
@@ -1367,7 +1369,7 @@
                 <td>تنشأ عفوياً بسبب العمل أو العلاقات الاجتماعية، وتساهم في زيادة التنسيق وسرعة إنجاز الأعمال.</td>
             </tr>
         </tbody>
-    </table>
+    </table></div>
 
     <h3>طرق الاتصال الجوهرية</h3>
     <ul>
@@ -1420,7 +1422,7 @@
     </ul>
 
     <h3>مقارنة تفصيلية بين القائد والمدير</h3>
-    <table>
+    <div class="table-wrapper"><table>
         <thead>
             <tr>
                 <th>وجه المقارنة</th>
@@ -1460,7 +1462,7 @@
                 <td>قوة رسمية مستمدة من المنصب الوظيفي والقانون.</td>
             </tr>
         </tbody>
-    </table>
+    </table></div>
 
     <h3>مصادر قوة القيادة وتأثيرها</h3>
     <ul>
@@ -1688,7 +1690,7 @@
     </ul>
 
     <h3>أنواع الرقابة المتعددة</h3>
-    <table>
+    <div class="table-wrapper"><table>
         <thead>
             <tr>
                 <th>معيار التصنيف</th>
@@ -1735,7 +1737,7 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table></div>
 
     <h3>أسباب الانحرافات</h3>
     <ul>

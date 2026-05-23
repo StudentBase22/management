@@ -263,6 +263,8 @@
             grid-template-columns: 320px 1fr;
             gap: 2rem;
             align-items: start;
+            min-width: 0;
+            width: 100%;
         }
 
         .units-sidebar {
@@ -274,6 +276,7 @@
             top: 6rem;
             max-height: calc(100vh - 8rem);
             overflow-y: auto;
+            min-width: 0;
         }
 
         .sidebar-title {
@@ -335,6 +338,8 @@
             padding: 3rem;
             min-height: 600px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            min-width: 0;
+            width: 100%;
         }
 
         .content-header {
@@ -719,6 +724,12 @@
             .container {
                 padding: 0.75rem;
                 overflow-x: hidden;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .study-grid, .content-area, .formatted-content {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
             }
             
             .hero {

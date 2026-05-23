@@ -671,47 +671,141 @@
         @media (max-width: 900px) {
             .study-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
             .units-sidebar {
                 position: relative;
                 top: 0;
-                max-height: 300px;
+                max-height: 250px;
+                padding: 1rem;
             }
             .stats-container {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 2rem;
             }
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
             }
         }
 
         @media (max-width: 600px) {
+            nav {
+                padding: 0.8rem 1rem;
+            }
+            .logo {
+                font-size: 1.3rem;
+                white-space: nowrap;
+            }
+            .logo i {
+                margin-left: 6px;
+            }
+            .nav-links {
+                gap: 0.25rem;
+            }
             .nav-links span {
                 display: none;
             }
             .nav-btn {
-                padding: 0.6rem;
+                padding: 0.5rem 0.6rem;
+                font-size: 1rem;
+                border-radius: 8px;
             }
+            
+            .container {
+                padding: 0.75rem;
+                overflow-x: hidden;
+            }
+            
+            .hero {
+                padding: 2.5rem 0;
+                min-height: auto;
+            }
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.8rem;
+            }
+            .hero-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
             .content-area, .exam-setup, .exam-running, .exam-results {
-                padding: 1.2rem;
+                padding: 1rem;
+                border-radius: 16px;
+                min-height: auto;
             }
+            
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
+            }
+            
             .formatted-content h2 {
-                font-size: 1.4rem;
-                flex-wrap: wrap;
-                word-wrap: break-word;
-                overflow-wrap: break-word;
+                font-size: 1.3rem;
+                padding: 0.8rem;
+                margin: 1.5rem 0 1rem;
+                border-right-width: 3px;
             }
+            .formatted-content h3 {
+                font-size: 1.2rem;
+                margin: 1.5rem 0 0.8rem;
+            }
+            .formatted-content p {
+                font-size: 1rem;
+                padding: 0.8rem;
+                line-height: 1.8;
+                margin-bottom: 1rem;
+            }
+            
             .formatted-content > ul, 
             .formatted-content > ol {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
             }
             .formatted-content > ul > li, 
             .formatted-content > ol > li {
-                padding: 1.2rem;
+                padding: 1.2rem 1rem;
             }
-            .container {
-                padding: 1rem;
-                overflow-x: hidden;
+            .formatted-content > ul > li > strong,
+            .formatted-content > ol > li > strong {
+                font-size: 1.15rem;
+                margin-bottom: 0.8rem;
+                padding-bottom: 0.6rem;
+            }
+            
+            .exam-setup h2 {
+                font-size: 1.8rem;
+            }
+            .exam-setup p {
+                font-size: 1rem;
+            }
+            .exam-running {
+                padding: 1.2rem 1rem;
+            }
+            .question-text {
+                font-size: 1.2rem;
+                line-height: 1.7;
+                margin-bottom: 1.5rem;
+            }
+            .option-btn {
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+            .formatted-content table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                width: 100%;
             }
         }
 
